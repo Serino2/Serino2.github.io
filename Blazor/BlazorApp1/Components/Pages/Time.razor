@@ -1,0 +1,19 @@
+@page "/time"
+@rendermode InteractiveServer
+
+<PageTitle>Date and Time</PageTitle>
+
+<h1>Current Date and Time</h1>
+
+<p>@(string.IsNullOrEmpty(currentDateTime) ? "Click the button to show date and time." : currentDateTime)</p>
+
+<button class="btn btn-primary" @onclick="ShowDateTime">Show Date and Time</button>
+
+@code {
+    private string currentDateTime = ""; // Initialize as an empty string
+
+    private void ShowDateTime()
+    {
+        currentDateTime = DateTime.Now.ToString("F"); // Displays full date and time
+    }
+}
