@@ -1,0 +1,13 @@
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\bin\Debug\net8.0\SmartEnergy.Library.deps.json
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\bin\Debug\net8.0\SmartEnergy.Library.dll
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\bin\Debug\net8.0\SmartEnergy.Library.pdb
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.csproj.AssemblyReference.cache
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.GeneratedMSBuildEditorConfig.editorconfig
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.AssemblyInfoInputs.cache
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.AssemblyInfo.cs
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.csproj.CoreCompileInputs.cache
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.sourcelink.json
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.dll
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\refint\SmartEnergy.Library.dll
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\SmartEnergy.Library.pdb
+C:\Programmeren\SmartEnergy\Serino2.github.io\SmartEnergy.Library\obj\Debug\net8.0\ref\SmartEnergy.Library.dll

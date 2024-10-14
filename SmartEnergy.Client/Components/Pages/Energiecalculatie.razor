@@ -1,0 +1,93 @@
+@page "/energiecalculatie"
+@rendermode InteractiveServer
+@inject IMeasurementRepository measurementRepository;
+
+<PageTitle>Energieverbruik en Kosten Berekening</PageTitle>
+<h1>Energieverbruik en Kosten Berekening</h1>
+<p>Op deze pagina wordt het energieverbruik en de kosten berekend op basis van meetdata van een Smart Meter.</p>
+
+<h3>Kies een dag en tijdsperiode</h3>
+<div>
+    <label for="dag">Kies een dag: </label>
+    <select @bind="eersteDag" id="dag">
+        @foreach (var dag in week)
+        {
+            <option value="@dag">@dag</option>
+        }
+    </select>
+    <label for="tijd">Van:</label>
+    <select @bind="beginTijd" id="van">
+        @foreach (var tijd in tijden)
+        {
+            <option value="@tijd">@tijd</option>
+        }
+    </select>
+    <label for="tijd">Tot:</label>
+    <select @bind="eindTijd" id="tot">
+        @foreach (var tijd in tijden)
+        {
+            <option value="@tijd">@tijd</option>
+        }
+    </select>
+</div>
+
+<button class="btn btn-primary mt-3" @onclick="BerekenKosten">Bereken uw dagelijkse kosten</button>
+
+@if (costsDaily > 0)
+{
+    <p class="mt-3">De berekende dagelijkse kosten zijn: €@costsDaily.ToString("F2")</p>
+}
+
+@code {
+    private List<Measurement>? measurements;
+    private double costsDaily = 0;
+    private string eersteDag = "";
+    private string beginTijd = "";
+    private string eindTijd = "";
+    private List<string> week = new List<string> 
+        { "Maandag", "Dinsdag", "Woensdag", "Donderdag", "Vrijdag", "Zaterdag", "Zondag" };
+    private List<string> tijden = new List<string> 
+        { "00.00", "01.00", "02.00", "03.00", "04.00", "05.00", "06.00", "07.00", "08.00", "09.00", "10.00", "11.00", "12.00", "13.00", "14.00", "15.00", "16.00", "17.00", "18.00", "19.00", "20.00", "21.00", "22.00", "23.00" };
+
+    protected override async Task OnInitializedAsync()
+    {
+        measurements = await this.measurementRepository.GetEnergyConsumed(1460883, 3, "1h");
+    }
+
+    private async Task BerekenKosten()
+    {
+        DateTime selectedDate = DateTime.Now.Date.AddDays(week.IndexOf(eersteDag) - (int)DateTime.Now.DayOfWeek + 1);
+        
+        TimeSpan startTime = TimeSpan.Parse(beginTijd);
+        TimeSpan endTime = TimeSpan.Parse(eindTijd);
+
+        if (measurements == null || !measurements.Any())
+        {
+            return;
+        }
+
+        var totaleEnergieVerbruikt = measurements
+            .Where(m => m.Timestamp.Date == selectedDate && m.Timestamp.TimeOfDay >= startTime && m.Timestamp.TimeOfDay <= endTime)
+            .Sum(m => m.EnergyPrice ?? 0.0);
+
+        costsDaily = CalculateDailyCosts(totaleEnergieVerbruikt);
+
+        StateHasChanged();
+    }
+
+    private double CalculateDailyCosts(double energyConsumed)
+    {
+        int vermogen = (int)energyConsumed;
+        double toeslag = toeslagPercentage(vermogen);
+        return vermogen * 0.2 + toeslag; //0.2 aanpassen naar prijs
+    }
+
+    private double toeslagPercentage(int vermogen)
+    {
+        if (vermogen < 1001) return 0;
+        if (vermogen < 2001) return 0.25;
+        if (vermogen < 3001) return 0.38;
+        if (vermogen < 4001) return 0.44;
+        return 0.47;
+    }
+}
